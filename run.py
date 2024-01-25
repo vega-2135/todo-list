@@ -1,5 +1,6 @@
 import gspread
 from google.oauth2.service_account import Credentials
+from datetime import datetime
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -12,7 +13,7 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('todo-list')
 
-to-do = SHEET.worksheet("to-do")
+to_do = SHEET.worksheet("to-do")
 message1 = f"Choose one of the following:\n"
 message2 = f"(1) Create a new to-do list\n(2) Open to-do lists\n(3) Help\n(4) Exit\n"
 
@@ -55,6 +56,10 @@ def create_list():
     """
     name = get_list_name(list_name)
 
+    date = get_list_date()
+
+    entry = get_entry()
+
 
 def get_list_name():
     """ 
@@ -73,16 +78,33 @@ def get_list_name():
     return list_name 
         
         
+def get_list_date():
+    """ 
+    Gets the date in which the new list was created in day-month-year format
+    """
+    today_date = datetime.now().date()
+
+    formatted_date = today_date.strftime("%d-%m-%Y")
+    
+    return formatted_date
+    
+
+def get_entry():
+    """
+    Gets to do message containing what the user wants to do
+    """
+    entry = input("Enter entry(Add what you want to do): ").strip()
+
+    return entry
 
 
+# def main():
 
-def main():
+#     print("Welcome to My TO-DO List!\n")
+#     print(f"{message1}\n{message2}")
+#     user_answer = get_user_input()
+#     print(user_answer)
+#     choose_option(user_answer)
 
-    print("Welcome to My TO-DO List!\n")
-    print(f"{message1}\n{message2}")
-    user_answer = get_user_input()
-    print(user_answer)
-    choose_option(user_answer)
-
-main()
-
+#main()
+    
