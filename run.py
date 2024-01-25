@@ -12,7 +12,7 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('todo-list')
 
-todo = SHEET.worksheet("todo")
+to-do = SHEET.worksheet("to-do")
 message1 = f"Choose one of the following:\n"
 message2 = f"(1) Create a new to-do list\n(2) Open to-do lists\n(3) Help\n(4) Exit\n"
 
@@ -35,6 +35,45 @@ def get_user_input():
         except ValueError:
             print("Invalid Answer")
 
+def choose_option(answer):
+    if answer == 1:
+        create_list()
+
+    elif answer == 2:
+        open_list()
+    
+    elif answer == 3:
+        show_help()
+    
+    else:
+        exit_program()
+
+
+def create_list():
+    """ 
+    Appends name, date and entry to to-do worksheet
+    """
+    name = get_list_name(list_name)
+
+
+def get_list_name():
+    """ 
+    Gets name for a new list and checks if the provided answwer already exists 
+    in the name column of the to-do worksheet  
+    """
+
+    column_name = todo.col_values(1)
+    while True:
+        list_name = input("Please enter a name for your new list: ")
+        if list_name not in column_name:
+            break
+        else:
+            print("There is already a list with that name, please choose another name\n")    
+    
+    return list_name 
+        
+        
+
 
 
 def main():
@@ -43,5 +82,7 @@ def main():
     print(f"{message1}\n{message2}")
     user_answer = get_user_input()
     print(user_answer)
+    choose_option(user_answer)
 
 main()
+
