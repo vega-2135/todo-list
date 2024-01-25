@@ -61,6 +61,8 @@ def create_list():
     entry = get_entry()
 
 
+
+
 def get_list_name():
     """ 
     Gets name for a new list and checks if the provided answwer already exists 
@@ -91,11 +93,33 @@ def get_list_date():
 
 def get_entry():
     """
-    Gets to do message containing what the user wants to do
+    Gets entry containing what the user wants to do
+    and asks if the user wants to add an additional entry
     """
-    entry = input("Enter entry(Add what you want to do): ").strip()
 
-    return entry
+
+    while True:
+
+        entries = []
+
+        entry = input("Enter entry(Add what you want to do): ").strip()
+
+        entries.append(entry)
+
+        additional_entry = input("Do you want to add another entry to this list? y/n\n").lower().strip()
+        
+        if additional_entry == "y":
+            continue
+        
+        elif additional_entry == "n":
+            break
+        
+        else:
+            print("Try again")
+            continue
+
+    return entries  
+
 
 
 # def main():
@@ -107,4 +131,3 @@ def get_entry():
 #     choose_option(user_answer)
 
 #main()
-    
