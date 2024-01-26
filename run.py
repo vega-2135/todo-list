@@ -13,11 +13,30 @@ SCOPE = [
 CREDS = Credentials.from_service_account_file('credentials.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-SHEET = GSPREAD_CLIENT.open('todo-list')
+WORKSHEET = 'todo'
+sheet_title = 'todo-list'
 
-to_do = SHEET.worksheet("to-do")
+# Sync data from googlesheets to csv file
+# Access a specific worksheet within the Google Sheet
+spreadsheet = GSPREAD_CLIENT.open(sheet_title)
+
+worksheet_list = spreadsheet.worksheets()
+
+worksheet = spreadsheet.worksheet(WORKSHEET)
+
+
+# Read data from CSV file into a DataFrame
+csv_file = 'to-do.csv'
+df = pd.read_csv(csv_file)
+
+# Next step takes place after the create list function, to sync the data 
+# that the user added to googlesheets to the csv file saved in this directory
+
+
 message1 = f"Choose one of the following:\n"
 message2 = f"(1) Create a new to-do list\n(2) Open to-do lists\n(3) Help\n(4) Exit\n"
+message3 = "Plase choose and option: "
+message4 = f"(1) See lists\n(2) Open list by name\n(3) Open list by date"
 
 
 def get_user_input():
@@ -93,27 +112,16 @@ def create_list():
         print (f"- {task}")
     print("------------------------------\n")
 
+    #Sync googlesheet data with csv file
+    # Check if the data in CSV and Google Sheet are different
+    if not df.equals(pd.DataFrame(worksheet.get_all_values(), columns=df.columns)):
+        # Update the CSV file with data from Google Sheet
+        df_updated = pd.DataFrame(worksheet.get_all_values(), columns=df.columns)
+        df_updated.to_csv(csv_file, index=False)
 
-
-    
-# def get_last_item(item):
-#     """
-#     Gets the last item of each column in to-do. Item 1 is the 
-#     name column, item 2 is the date column and number 3 is the task column
-#     """def tasks():
-# #     task = get_task()
-# #     for item in task:
-# #         print(f"- {item}")
-#     if item == "name":
-#         item = 1
-#     elif item == "date":
-#         item = 2
-#     else:
-#         item = 3
-
-#     column = to_do.col_values(item)
-#     last_item = column[-1]
-#     return(last_item)
+        print("CSV file has been updated with data from Google Sheet.")
+    else:
+        print("CSV file is already up-to-date.")
 
   
 def get_list_name():
