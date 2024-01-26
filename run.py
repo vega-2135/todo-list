@@ -1,6 +1,8 @@
 import gspread
 from google.oauth2.service_account import Credentials
 from datetime import datetime
+import pandas as pd
+from tabulate import tabulate
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -75,7 +77,7 @@ def create_list():
     print("")
     print("Loading new item to list....\n")
 
-    to_do.append_row(list_item)
+    worksheet.append_row(list_item)
 
     print("This is your recently added item :\n")
 
@@ -120,7 +122,7 @@ def get_list_name():
     in the name column of the to-do worksheet  
     """
 
-    column_name = to_do.col_values(1)
+    column_name = worksheet.col_values(1)
     while True:
         list_name = input("\nPlease enter a name for your new list: \n")
         if list_name not in column_name:
@@ -170,11 +172,83 @@ def get_task():
     return tasks  
 
 
+def open_list():
+    name = 0
+    date = 1
+
+    text1 = "Please write a list's name: "
+    text2 = "Please write a date in this format: dd-m-y: "
+
+    feedback1 = "There is no match with the provided name, try again with another name"
+    feedback2 = "There is no match with the provided date, try again with another date"
+
+    print(f"\n{message3}\n")
+    print(f"{message4}\n")
+    user_choice = int(input("Enter your choice: "))
+
+    if user_choice == 1:
+        show_lists()
+    elif user_choice == 2:
+        show_list_by(text1, name, feedback1)
+    elif user_choice == 3:
+        show_list_by(text2, date, feedback2)
+    else:
+        print("Invalid choice. Please enter 1, 2, or 3.")
+
+    return user_choice
+
+def show_lists():
+    """ 
+    Shows the all the lists created by the user
+    """
+
+    if df.empty:
+        print("There is no list. There is nothing to display.")
+    else:
+        # Display the first row of worksheet centered 
+        print(tabulate(df.head(), headers='keys', tablefmt='fancy_grid', numalign="center"))
+        
+
+def show_list_by(text, column, feedbak):
+    """
+    Shows lists content corresponding to the date the user inputs
+    """
+    list_item = worksheet.get_all_values()
+    items = []
+    list_name = []
+
+    while True:
+        user_answer = input(f"{text} \n")
+        
+        for row in list_item:
+            if row[column] == user_answer:
+                list_name.append(row[column])
+                items.append(row)
+        
+        if user_answer not in list_name:
+            print("\nThere is no match with the provided date, try with another date\n")
+            continue
+        else:
+            break
+            
+    
+    for element in items:
+        name = element[0]
+        date = element[1]
+        tasks = element[2]
+        print("------------------------------------------------")
+        print(f"Date: {date}\nName: {name}\nTasks: {tasks}")
+        print("------------------------------------------------\n")
+
+
+
+
 def main():
 
-    print("Welcom# to My TO-DO List!\n")
+    print("Welcome to My TO-DO List!\n")
     print(f"{message1}\n{message2}")
     user_answer = get_user_input()
     choose_option(user_answer)
 
 main()
+    
