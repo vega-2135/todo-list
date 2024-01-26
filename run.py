@@ -37,6 +37,7 @@ message1 = f"Choose one of the following:\n"
 message2 = f"(1) Create a new to-do list\n(2) Open to-do lists\n(3) Help\n(4) Exit\n"
 message3 = "Plase choose and option: "
 message4 = f"(1) See lists\n(2) Open list by name\n(3) Open list by date"
+message5 = "What do you want to do next: "
 
 
 def get_user_input():
@@ -70,11 +71,18 @@ def choose_option(answer):
     elif answer == 2:
         open_list()
     
-    elif answer == 3:
-        show_help()
-    
     else:
-        exit_program()
+        show_help()
+
+
+def show_menu():
+    """
+    Show the main menu to the user
+    """
+    print(f"{message5}\n")
+    print(f"{message2}")
+    user_answer = get_user_input()
+    choose_option(user_answer)
 
 
 def create_list():
@@ -110,7 +118,7 @@ def create_list():
     print("Tasks: \n")
     for task in tasks:
         print (f"- {task}")
-    print("------------------------------\n")
+    print("------------------------------")
 
     #Sync googlesheet data with csv file
     # Check if the data in CSV and Google Sheet are different
@@ -119,9 +127,11 @@ def create_list():
         df_updated = pd.DataFrame(worksheet.get_all_values(), columns=df.columns)
         df_updated.to_csv(csv_file, index=False)
 
-        print("CSV file has been updated with data from Google Sheet.")
+        print("")
     else:
         print("CSV file is already up-to-date.")
+
+    show_menu()
 
   
 def get_list_name():
@@ -161,7 +171,7 @@ def get_task():
 
     while True:
 
-        task = input("\nEnter entry(Add what you want to do): ").strip()
+        task = input("\nAdd task: ").strip()
 
         tasks.append(task)
 
@@ -204,6 +214,7 @@ def open_list():
         print("Invalid choice. Please enter 1, 2, or 3.")
 
     return user_choice
+    
 
 def show_lists():
     """ 
@@ -215,7 +226,9 @@ def show_lists():
     else:
         # Display the first row of worksheet centered 
         print(tabulate(df.head(), headers='keys', tablefmt='fancy_grid', numalign="center"))
-        
+    
+    show_menu()
+
 
 def show_list_by(text, column, feedbak):
     """
@@ -247,9 +260,26 @@ def show_list_by(text, column, feedbak):
         print("------------------------------------------------")
         print(f"Date: {date}\nName: {name}\nTasks: {tasks}")
         print("------------------------------------------------\n")
+    
+    show_menu()
 
 
+def show_help():
+    """
+    Explains the user what can they do with this program and how to do it
+    """
+    help_message = """How to Use My To-Do List\n\n
+    (1) Create a new list
+    To create a new list, enter '1' and follow the prompts to input the necessary information. Once your list is created, it will be loaded into Google Sheets and displayed for you.
 
+    (2) Open to-do lists
+        Use this option to access:
+
+        - All your lists: Enter '1' in the menu to view all lists in a table format.
+        - A specific list by name: Enter '2' to access an item by specifying the list's name.
+        - A specific list by date: Enter '3' to access an item by specifying the list's date.
+    """
+    show_menu()
 
 def main():
 
