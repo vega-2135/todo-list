@@ -13,16 +13,16 @@ SCOPE = [
 CREDS = Credentials.from_service_account_file('credentials.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-WORKSHEET = 'todo'
-sheet_title = 'todo-list'
+WORKSHEET_TITLE = 'todo'
+SHEET_TITLE = 'todo-list'
 
 # Sync data from googlesheets to csv file
 # Access a specific worksheet within the Google Sheet
-spreadsheet = GSPREAD_CLIENT.open(sheet_title)
+SPREADSHEET = GSPREAD_CLIENT.open(SHEET_TITLE)
 
-worksheet_list = spreadsheet.worksheets()
+WORKSHEET_LIST = SPREADSHEET.worksheets()
 
-worksheet = spreadsheet.worksheet(WORKSHEET)
+WORKSHEET = SPREADSHEET.worksheet(WORKSHEET_TITLE)
 
 
 # Read data from CSV file into a DataFrame
@@ -114,7 +114,7 @@ def create_list():
     print("")
     print("Loading new item to list....\n")
 
-    worksheet.append_row(list_item)
+    WORKSHEET.append_row(list_item)
 
     print("This is your recently added item :\n")
 
@@ -132,9 +132,9 @@ def create_list():
 
     #Sync googlesheet data with csv file
     # Check if the data in CSV and Google Sheet are different
-    if not df.equals(pd.DataFrame(worksheet.get_all_values(), columns=df.columns)):
+    if not df.equals(pd.DataFrame(WORKSHEET.get_all_values(), columns=df.columns)):
         # Update the CSV file with data from Google Sheet
-        df_updated = pd.DataFrame(worksheet.get_all_values(), columns=df.columns)
+        df_updated = pd.DataFrame(WORKSHEET.get_all_values(), columns=df.columns)
         df_updated.to_csv(csv_file, index=False)
 
         print("")
@@ -150,7 +150,7 @@ def get_list_name():
     in the name column of the to-do worksheet  
     """
 
-    column_name = worksheet.col_values(1)
+    column_name = WORKSHEET.col_values(1)
     while True:
         list_name = input("\nPlease enter a name for your new list: \n")
         if list_name not in column_name and list_name.lower() != "q":
@@ -258,7 +258,7 @@ def show_list_by(text, column, feedbak):
     """
     Shows lists content corresponding to the date the user inputs
     """
-    list_item = worksheet.get_all_values()
+    list_item = WORKSHEET.get_all_values()
     items = []
     list_name = []
 
@@ -295,18 +295,20 @@ def show_help():
     """
     Explains the user what can they do with this program and how to do it
     """
-    help_message = """How to Use My To-Do List\n\n
-    (1) Create a new list
-    To create a new list, enter '1' and follow the prompts to input the necessary information. Once your list is created, it will be loaded into Google Sheets and displayed for you.
+    help_message = """
+How to Use My To-Do List:\n
+(1) Create a new list:
+To create a new list, enter '1' and follow the prompts to input the necessary information. 
+Once your list is created, it will be loaded into Google Sheets and displayed for you.
 
-    (2) Open to-do lists
-        Use this option to access:
+(2) Open to-do lists:
+    Use this option to access:
 
-        - All your lists: Enter '1' in the menu to view all lists in a table format.
-        - A specific list by name: Enter '2' to access an item by specifying the list's name.
-        - A specific list by date: Enter '3' to access an item by specifying the list's date.
+    - All your lists: Enter '1' in the menu to view all lists in a table format.
+    - A specific list by name: Enter '2' to access an item by specifying the list's name.
+    - A specific list by date: Enter '3' to access an item by specifying the list's date.
 
-    Note: You can exit thhe program any time by entering q or Q into the console.
+Note: You can exit thhe program any time by entering q or Q into the console.
     """
     print(help_message)
     show_menu(messages['next'], messages['choose option'], messages['menu options'])
