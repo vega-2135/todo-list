@@ -3,6 +3,10 @@ from google.oauth2.service_account import Credentials
 from datetime import datetime
 import pandas as pd
 from tabulate import tabulate
+from art import tprint
+from termcolor import colored, cprint
+from time import sleep
+from os import system, name
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -32,7 +36,6 @@ df = pd.read_csv(csv_file)
 # Next step takes place after the create list function, to sync the data 
 # that the user added to googlesheets to the csv file saved in this directory
 messages = {
-    "welcome message": "\nWelcome to My TO-DO List!\n",
     "choose message": f"Choose one of the following:\n",
     "menu options": f"(1) Create a new to-do list\n(2) Open to-do lists\n(3) Help\n",
     "choose option": "Plase choose and option:\n",
@@ -313,9 +316,21 @@ Note: You can exit thhe program any time by entering q or Q into the console.
     print(help_message)
     show_menu(messages['next'], messages['choose option'], messages['menu options'])
 
-def main():
+def clear():
+   # for windows
+   if name == 'nt':
+      _ = system('cls')
 
-    print(messages["welcome message"])
+   # for mac and linux
+   else:
+    _ = system('clear')
+
+
+def main():
+    tprint(" MY\nTO-DO\n LIST")
+    cprint(f"{messages['welcome message']} \n", "light_magenta")
+    sleep(2)
+    clear()
     print(f"{messages['choose message']}\n{messages['menu options']}")
     user_answer = get_user_input()
     choose_option(user_answer)
