@@ -8,7 +8,7 @@ SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive"
-    ]
+]
 
 CREDS = Credentials.from_service_account_file('credentials.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
@@ -31,13 +31,16 @@ df = pd.read_csv(csv_file)
 
 # Next step takes place after the create list function, to sync the data 
 # that the user added to googlesheets to the csv file saved in this directory
+messages = {
+    "welcome message": "\nWelcome to My TO-DO List!\n",
+    "choose message": f"Choose one of the following:\n",
+    "menu options": f"(1) Create a new to-do list\n(2) Open to-do lists\n(3) Help\n",
+    "choose option": "Plase choose and option:\n",
+    "open options": f"(1) See lists\n(2) Open list by name\n(3) Open list by date",
+    "next": "What do you want to do next: ",
+    "exiting program": "\nYou are exiting the program and redirected to the main menu......"
 
-
-message1 = f"Choose one of the following:\n"
-message2 = f"(1) Create a new to-do list\n(2) Open to-do lists\n(3) Help\n(4) Exit\n"
-message3 = "Plase choose and option: "
-message4 = f"(1) See lists\n(2) Open list by name\n(3) Open list by date"
-message5 = "What do you want to do next: "
+}
 
 
 def get_user_input():
@@ -48,8 +51,9 @@ def get_user_input():
     while True:
         
         try:
-            user_input = int(input("Please write your option here and press Enter to confirm your selection:\n"))
-            if user_input >= 1 or user_input <= 4:
+            user_input = input("\nPlease write your option here and press Enter to confirm your selection:\n")
+            # I'm using int of anwer so the user can exit program entering a string (q) in the choose_option function
+            if user_input.lower() == "q" or (int(user_input) >= 1 or int(user_input) <= 4):
                 break
 
             else:
@@ -65,22 +69,28 @@ def choose_option(answer):
     """
     Calls the right function depending on the answer provided by the user
     """
-    if answer == 1:
+    # Here I'm using strings of anwer so the user can exit program entering a string (q)
+
+    if answer == "1":
         create_list()
 
-    elif answer == 2:
+    elif answer == "2":
         open_list()
     
-    else:
+    elif answer == "3":
         show_help()
 
+    else:
+        main()
 
-def show_menu():
+
+def show_menu(messagea, messageb, messagec):
     """
     Show the main menu to the user
     """
-    print(f"{message5}\n")
-    print(f"{message2}")
+    print(f"\n{messagea}\n")
+    print(f"{messageb}")
+    print(f"{messagec}")
     user_answer = get_user_input()
     choose_option(user_answer)
 
@@ -131,7 +141,7 @@ def create_list():
     else:
         print("CSV file is already up-to-date.")
 
-    show_menu()
+    show_menu(messages['next'], messages['choose option'], messages['menu options'])
 
   
 def get_list_name():
@@ -143,8 +153,11 @@ def get_list_name():
     column_name = worksheet.col_values(1)
     while True:
         list_name = input("\nPlease enter a name for your new list: \n")
-        if list_name not in column_name:
+        if list_name not in column_name and list_name.lower() != "q":
             break
+        elif list_name.lower() == "q":
+            print(messages["exiting program"])
+            main()
         else:
             print("There is already a list with that name, please choose another name\n")    
     
@@ -173,7 +186,11 @@ def get_task():
 
         task = input("\nAdd task: ").strip()
 
-        tasks.append(task)
+        if task.lower() != "q":
+            tasks.append(task)
+        else:
+            print(messages["exiting program"])
+            main()
 
         additional_task = input("\nDo you want to add another task to this list? y/n\n").lower().strip()
         
@@ -182,7 +199,11 @@ def get_task():
         
         elif additional_task == "n":
             break
-        
+
+        elif additional_task.lower() == "q":
+            print(messages["exiting program"])
+            main()
+
         else:
             print("Try again")
             continue
@@ -194,22 +215,25 @@ def open_list():
     name = 0
     date = 1
 
-    text1 = "Please write a list's name: "
-    text2 = "Please write a date in this format: dd-m-y: "
+    text1 = "\nPlease write a list's name: "
+    text2 = "\nPlease write a date in this format: dd-m-y: "
 
     feedback1 = "There is no match with the provided name, try again with another name"
     feedback2 = "There is no match with the provided date, try again with another date"
 
     print(f"\n{message3}\n")
     print(f"{message4}\n")
-    user_choice = int(input("Enter your choice: "))
+    user_choice = input("Enter your choice: ")
 
-    if user_choice == 1:
+    if user_choice == "1":
         show_lists()
-    elif user_choice == 2:
+    elif user_choice == "2":
         show_list_by(text1, name, feedback1)
-    elif user_choice == 3:
+    elif user_choice == "3":
         show_list_by(text2, date, feedback2)
+    elif user_choice.lower() == "q":
+        print(messages["exiting program"])
+        main()
     else:
         print("Invalid choice. Please enter 1, 2, or 3.")
 
@@ -227,7 +251,7 @@ def show_lists():
         # Display the first row of worksheet centered 
         print(tabulate(df.head(), headers='keys', tablefmt='fancy_grid', numalign="center"))
     
-    show_menu()
+    show_menu(messages['next'], messages['choose option'], messages['menu options'])
 
 
 def show_list_by(text, column, feedbak):
@@ -246,9 +270,12 @@ def show_list_by(text, column, feedbak):
                 list_name.append(row[column])
                 items.append(row)
         
-        if user_answer not in list_name:
+        if user_answer not in list_name and user_answer.lower() != "q":
             print("\nThere is no match with the provided date, try with another date\n")
             continue
+        elif user_answer.lower() == "q":
+            print(messages["exiting program"])
+            main()
         else:
             break
             
@@ -261,7 +288,7 @@ def show_list_by(text, column, feedbak):
         print(f"Date: {date}\nName: {name}\nTasks: {tasks}")
         print("------------------------------------------------\n")
     
-    show_menu()
+    show_menu(f"{messages['next']}\n{messages['choose option']}")
 
 
 def show_help():
@@ -278,13 +305,16 @@ def show_help():
         - All your lists: Enter '1' in the menu to view all lists in a table format.
         - A specific list by name: Enter '2' to access an item by specifying the list's name.
         - A specific list by date: Enter '3' to access an item by specifying the list's date.
+
+    Note: You can exit thhe program any time by entering q or Q into the console.
     """
-    show_menu()
+    print(help_message)
+    show_menu(messages['next'], messages['choose option'], messages['menu options'])
 
 def main():
 
-    print("Welcome to My TO-DO List!\n")
-    print(f"{message1}\n{message2}")
+    print(messages["welcome message"])
+    print(f"{messages['choose message']}\n{messages['menu options']}")
     user_answer = get_user_input()
     choose_option(user_answer)
 
