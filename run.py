@@ -13,6 +13,7 @@ def main():
     cprint(f"{messages['welcome message']} \n", "light_magenta")
     sleep(2)
     clear()
+    print("")
     print(f"{messages['choose message']}\n{messages['menu options']}")
     user_answer = get_user_input()
     choose_option(user_answer)

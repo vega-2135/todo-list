@@ -10,20 +10,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/3.14.5/addons/attach/attach.js"></script>
     <title>Python Terminal by Code Institute</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap');
+        @import url("https://fonts.googleapis.com/css2?family=Lora&family=Roboto&display=swap");
+        @import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
 
         html {
             background-color: #04678c;
         }
 
         body {
-            font-family: 'Oswald', sans-serif;
             max-width: 750px;
             margin: auto;
         }
 
         h1 {
             margin-top: 70px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 3.5rem
         }
 
         h1, footer {
@@ -32,13 +34,32 @@
             color: white;
         }
 
+        footer {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        a,
+        a:visited {
+            color: white;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            font-style: bolder;
+        }
+
+        #terminal {
+            padding-top: 2rem;
+        }
+
         /**
         * Default styles for xterm.js
         */
 
         .xterm {
             font-feature-settings: "liga"0;
-            position: relative;
+            position: relative;#FBFFF1
             user-select: none;
             -ms-user-select: none;
             -webkit-user-select: none;
