@@ -237,7 +237,7 @@ def open_list():
 
     print(f"\n{message3}\n")
     print(f"{message4}\n")
-    user_choice = input("Enter your choice: ")
+    user_choice = input("Enter your choice:\n")
 
     if user_choice == "1":
         show_lists()
