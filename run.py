@@ -10,7 +10,7 @@ from os import system, name
 
 def main():
     tprint(" MY\nTO-DO\n LIST")
-    cprint(f"{messages['welcome message']} \n", "blue")
+    cprint(f"{messages['welcome message']} \n", "light_magenta")
     sleep(2)
     clear()
     print(f"{messages['choose message']}\n{messages['menu options']}")
