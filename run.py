@@ -152,7 +152,7 @@ def create_list():
         df_updated = pd.DataFrame(WORKSHEET.get_all_values(), columns=df.columns)
         df_updated.to_csv(csv_file, index=False)
 
-        print("")
+        print("Updated csv")
     else:
         print("CSV file is already up-to-date.")
 
