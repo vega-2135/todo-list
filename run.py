@@ -31,7 +31,7 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 WORKSHEET_TITLE = 'todo'
 SHEET_TITLE = 'todo-list'
 
-# Sync data from googlesheets to csv file
+
 # Access a specific worksheet within the Google Sheet
 SPREADSHEET = GSPREAD_CLIENT.open(SHEET_TITLE)
 
@@ -40,12 +40,6 @@ WORKSHEET_LIST = SPREADSHEET.worksheets()
 WORKSHEET = SPREADSHEET.worksheet(WORKSHEET_TITLE)
 
 
-# Read data from CSV file into a DataFrame
-csv_file = 'to-do.csv'
-df = pd.read_csv(csv_file)
-
-# Next step takes place after the create list function, to sync the data 
-# that the user added to googlesheets to the csv file saved in this directory
 messages = {
     "welcome message": "\nWelcome to My TO-DO List!\n",
     "choose message": f"Choose one of the following:\n",
@@ -144,17 +138,6 @@ def create_list():
     for task in tasks:
         print (f"- {task}")
     print("------------------------------")
-
-    #Sync googlesheet data with csv file
-    # Check if the data in CSV and Google Sheet are different
-    if not df.equals(pd.DataFrame(WORKSHEET.get_all_values(), columns=df.columns)):
-        # Update the CSV file with data from Google Sheet
-        df_updated = pd.DataFrame(WORKSHEET.get_all_values(), columns=df.columns)
-        df_updated.to_csv(csv_file, index=False)
-
-        print("Updated csv")
-    else:
-        print("CSV file is already up-to-date.")
 
     show_menu(messages['next'], messages['choose option'], messages['menu options'])
 
@@ -259,12 +242,11 @@ def show_lists():
     """ 
     Shows the all the lists created by the user
     """
-
-    if df.empty:
-        print("There is no list. There is nothing to display.")
+    list_items = WORKSHEET.get_all_values()
+    if len(list_items) == 1:
+        print("There is nothing to display.")
     else:
-        # Display the first row of worksheet centered 
-        print(tabulate(df.head(), headers='keys', tablefmt='fancy_grid', numalign="center"))
+        print(tabulate(list_items, headers="firstrow", tablefmt="fancy_grid", numalign="center"))
     
     show_menu(messages['next'], messages['choose option'], messages['menu options'])
 
@@ -273,14 +255,14 @@ def show_list_by(text, column, feedbak):
     """
     Shows lists content corresponding to the date the user inputs
     """
-    list_item = WORKSHEET.get_all_values()
+    list_items = WORKSHEET.get_all_values()
     items = []
     list_name = []
 
     while True:
         user_answer = input(f"{text} \n")
         
-        for row in list_item:
+        for row in list_items:
             if row[column] == user_answer:
                 list_name.append(row[column])
                 items.append(row)
@@ -303,7 +285,7 @@ def show_list_by(text, column, feedbak):
         print(f"Date: {date}\nName: {name}\nTasks: {tasks}")
         print("------------------------------------------------\n")
     
-    show_menu(f"{messages['next']}\n{messages['choose option']}")
+    show_menu(messages['next'], messages['choose option'], messages['menu options'])
 
 
 def show_help():
