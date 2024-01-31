@@ -1,22 +1,21 @@
 import gspread
 from google.oauth2.service_account import Credentials
 from datetime import datetime
-import pandas as pd
 from tabulate import tabulate
 from art import tprint
 from termcolor import colored, cprint
 from time import sleep
 from os import system, name
 
-def main():
-    tprint(" MY\nTO-DO\n LIST")
-    cprint(f"{messages['welcome message']} \n", "light_magenta")
-    sleep(2)
-    clear()
-    print("")
-    print(f"{messages['choose message']}\n{messages['menu options']}")
-    user_answer = get_user_input()
-    choose_option(user_answer)
+# def main():
+#     tprint(" MY\nTO-DO\n LIST")
+#     cprint(f"{messages['welcome message']} \n", "light_magenta")
+#     sleep(2)
+#     clear()
+#     print("")
+#     print(f"{messages['choose message']}\n{messages['menu options']}")
+#     user_answer = get_user_input()
+#     choose_option(user_answer)
 
 
 SCOPE = [
@@ -47,7 +46,10 @@ messages = {
     "choose option": "Plase choose an option:\n",
     "open options": f"(1) See lists\n(2) Open list by name\n(3) Open list by date",
     "next": "What do you want to do next: ",
-    "exiting program": "\nYou are exiting the program and redirected to the main menu......"
+    "exiting program": "\nYou are exiting the program and redirected to the main menu......",
+    "choose_name": "\nChoose a name by entering the corresponding number",
+    "enter_choice": "\nEnter choice here: \n"
+
 
 }
 
@@ -214,7 +216,7 @@ def open_list():
     date = 1
 
     text1 = "\nPlease write a list's name: "
-    text2 = "\nPlease write a date in this format: dd-m-y: "
+    text2 = "\nPlease write a date in this format: dd-mm-yy: "
 
     feedback1 = "There is no match with the provided name, try again with another name"
     feedback2 = "There is no match with the provided date, try again with another date"
@@ -249,6 +251,49 @@ def show_lists():
         print(tabulate(list_items, headers="firstrow", tablefmt="fancy_grid", numalign="center"))
     
     show_menu(messages['next'], messages['choose option'], messages['menu options'])
+
+def show_list_name():
+   
+    list_items = WORKSHEET.get_all_values()
+    list_content = []
+    column_name = WORKSHEET.col_values(1)
+    lists_names = column_name[1:]
+
+    while True:
+        try:
+            print("   Name")
+            print("-----------")
+            column_name = WORKSHEET.col_values(1)
+            lists_names = column_name[1:]
+            id = 1
+            for item in lists_names:
+                print(f"{id}: {item}")
+                id += 1
+            print(f"{messages['choose_name']}")
+
+            choice = int(input(messages["enter_choice"]).strip())
+            # len(lists_names)+ 1 is used because as range doesn't include the last value,
+            # thus, + 1 is needed to include the last item of the column name
+            if choice in range(len(lists_names)+ 1) and choice > 0:
+                for element in list_items[choice]:
+                    list_content.append(element)
+                break
+            else:
+                raise ValueError
+        
+        except ValueError:
+            print("\nInput out of range! Please try again.\n")
+
+    print("------------------------------------------------")
+    print(f"Date: {list_content[1]}\nName: {list_content[0]}\nTasks:")
+                
+    tasks = list_content[-1]
+    # eval is use to convert tasks(a str element) to a list element
+    tasks_list = eval(tasks)
+    for task in tasks_list:
+        print(f"  - {task}")      
+    print("------------------------------------------------\n")
+        
 
 
 def show_list_by(text, column, feedbak):
@@ -305,7 +350,7 @@ Once your list is created, it will be loaded into Google Sheets and displayed fo
     - A specific list by name: Enter '2' to access an item by specifying the list's name.
     - A specific list by date: Enter '3' to access an item by specifying the list's date.
 
-Note: You can exit thhe program any time by entering q or Q into the console.
+Note: You can re-start the program at any time by entering q or Q into the console.
     """
     print(help_message)
     show_menu(messages['next'], messages['choose option'], messages['menu options'])
@@ -320,5 +365,8 @@ def clear():
     _ = system('clear')
 
 
-main()
+# main()
+
+name = show_list_name()
+print(name)
     
