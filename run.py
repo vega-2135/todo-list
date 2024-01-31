@@ -228,7 +228,7 @@ def open_list():
     if user_choice == "1":
         show_lists()
     elif user_choice == "2":
-        show_list_by(text1, name, feedback1)
+        show_list_by_name()
     elif user_choice == "3":
         show_list_by(text2, date, feedback2)
     elif user_choice.lower() == "q":
@@ -252,7 +252,7 @@ def show_lists():
     
     show_menu(messages['next'], messages['choose option'], messages['menu options'])
 
-def show_list_name():
+def show_list_by_name():
    
     list_items = WORKSHEET.get_all_values()
     list_content = []
