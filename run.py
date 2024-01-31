@@ -50,7 +50,7 @@ messages = {
     "welcome message": "\nWelcome to My TO-DO List!\n",
     "choose message": f"Choose one of the following:\n",
     "menu options": f"(1) Create a new to-do list\n(2) Open to-do lists\n(3) Help\n",
-    "choose option": "Plase choose and option:\n",
+    "choose option": "Plase choose an option:\n",
     "open options": f"(1) See lists\n(2) Open list by name\n(3) Open list by date",
     "next": "What do you want to do next: ",
     "exiting program": "\nYou are exiting the program and redirected to the main menu......"
@@ -236,8 +236,8 @@ def open_list():
     feedback1 = "There is no match with the provided name, try again with another name"
     feedback2 = "There is no match with the provided date, try again with another date"
 
-    print(f"\n{message3}\n")
-    print(f"{message4}\n")
+    print(f"\n{messages['choose option']}\n")
+    print(f"{messages['open options']}\n")
     user_choice = input("Enter your choice:\n")
 
     if user_choice == "1":
