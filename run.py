@@ -57,12 +57,12 @@ messages = {
 def get_user_input():
     """ 
     Gets option from user and validates that the input is an integer between 1 and 4,
-    if the input does not follows these constrains, then a ValueError is raise 
+    if the input does not follows these constrains, then a ValueError is raised 
     """
     while True:
         
         try:
-            user_input = input("\nPlease write your option here and press Enter to confirm your selection:\n")
+            user_input = input("\nPlease write your option here and press Enter to confirm your selection:\n").strip()
             # I'm using int of anwer so the user can exit program entering a string (q) in the choose_option function
             if user_input.lower() == "q" or (int(user_input) >= 1 or int(user_input) <= 4):
                 break
@@ -97,7 +97,7 @@ def choose_option(answer):
 
 def show_menu(messagea, messageb, messagec):
     """
-    Show the main menu to the user
+    Displays the main menu to the user
     """
     print(f"\n{messagea}\n")
     print(f"{messageb}")
@@ -108,7 +108,8 @@ def show_menu(messagea, messageb, messagec):
 
 def create_list():
     """ 
-    Appends name, date and entry to to-do worksheet
+    Appends name, date and task/taks provided by the user to 
+    the todo work sheet
     """
     name = get_list_name()
 
@@ -146,14 +147,19 @@ def create_list():
   
 def get_list_name():
     """ 
-    Gets name for a new list and checks if the provided answwer already exists 
-    in the name column of the to-do worksheet  
+    Prompts the user for a name for a new list and checks if the 
+    provided name already exists in the name column of the worksheet
+    and if its length is between 1 and 10 characters  
     """
 
     column_name = WORKSHEET.col_values(1)
     while True:
-        list_name = input("\nPlease enter a name for your new list: \n")
-        if list_name not in column_name and list_name.lower() != "q":
+        list_name = input("\nPlease enter a name for your new list(the name should be between 1 and 10 characters long): \n").strip()
+
+        if len(list_name) < 1 or len(list_name) > 10:
+            print("The name should be between 1 and 10 characters long")
+            continue
+        elif list_name not in column_name and list_name.lower() != "q":
             break
         elif list_name.lower() == "q":
             print(messages["exiting program"])
@@ -166,7 +172,8 @@ def get_list_name():
 
 def get_list_date():
     """ 
-    Gets the date in which the new list was created in day-month-year format
+    Adds the date in which the new list was created in day-month-year format 
+    in the date column of the work sheet corresponding to that list
     """
     today_date = datetime.now().date()
 
@@ -177,8 +184,8 @@ def get_list_date():
 
 def get_task():
     """
-    Gets tasks containing what the user wants to do
-    and asks if the user wants to add an additional entry
+    Prompt the user to add a task and asks if the user 
+    wants to add an additional task
     """
     tasks = []
 
@@ -242,7 +249,7 @@ def open_list():
 
 def show_lists():
     """ 
-    Shows the all the lists created by the user
+    Displays all the lists created by the user in a table
     """
     list_items = WORKSHEET.get_all_values()
     if len(list_items) == 1:
@@ -371,7 +378,11 @@ Note: You can re-start the program at any time by entering q or Q into the conso
     print(help_message)
     show_menu(messages['next'], messages['choose option'], messages['menu options'])
 
+
 def clear():
+   """
+   Clear the program screen depending on the os the user has
+   """
    # for windows
    if name == 'nt':
       _ = system('cls')
@@ -381,8 +392,6 @@ def clear():
     _ = system('clear')
 
 
-# main()
+main()
 
-name = show_list_name()
-print(name)
     
