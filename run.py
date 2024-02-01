@@ -7,15 +7,15 @@ from termcolor import colored, cprint
 from time import sleep
 from os import system, name
 
-# def main():
-#     tprint(" MY\nTO-DO\n LIST")
-#     cprint(f"{messages['welcome message']} \n", "light_magenta")
-#     sleep(2)
-#     clear()
-#     print("")
-#     print(f"{messages['choose message']}\n{messages['menu options']}")
-#     user_answer = get_user_input()
-#     choose_option(user_answer)
+def main():
+    tprint(" MY\nTO-DO\n LIST")
+    cprint(f"{messages['welcome message']} \n", "light_magenta")
+    sleep(2)
+    clear()
+    print("")
+    print(f"{messages['choose message']}\n{messages['menu options']}")
+    user_answer = get_user_input().strip()
+    choose_option(user_answer)
 
 
 SCOPE = [
@@ -252,8 +252,14 @@ def show_lists():
     
     show_menu(messages['next'], messages['choose option'], messages['menu options'])
 
+
 def show_list_by_name():
-   
+    """
+    Displays all the lists name so that the user can then choose one name, 
+    the user will be prompted to enter a number which corresponds to a name,
+    once a number is entered, the whole list's content related with that name will be 
+    displayed
+    """
     list_items = WORKSHEET.get_all_values()
     list_content = []
     column_name = WORKSHEET.col_values(1)
@@ -271,10 +277,14 @@ def show_list_by_name():
                 id += 1
             print(f"{messages['choose_name']}")
 
-            choice = int(input(messages["enter_choice"]).strip())
+            choice = input(messages["enter_choice"]).strip()
             # len(lists_names)+ 1 is used because as range doesn't include the last value,
             # thus, + 1 is needed to include the last item of the column name
-            if choice in range(len(lists_names)+ 1) and choice > 0:
+            
+            if choice.lower() == "q":
+                print(messages["exiting program"])
+                main()
+            elif int(choice) in range(len(lists_names)+ 1) and choice > 0:
                 for element in list_items[choice]:
                     list_content.append(element)
                 break
