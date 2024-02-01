@@ -224,24 +224,28 @@ def open_list():
     show all the lists, open a list by its name or open all lists with 
     the same date
     """
+    while True:
+        print(f"\n{messages['choose option']}\n")
+        print(f"{messages['open options']}\n")
+        user_choice = input("Enter your choice:\n").strip()
 
-    print(f"\n{messages['choose option']}\n")
-    print(f"{messages['open options']}\n")
-    user_choice = input("Enter your choice:\n").strip()
+        if user_choice == "1":
+            show_lists()
+            break
+        elif user_choice == "2":
+            show_list_by_name()
+            break
+        elif user_choice == "3":
+            show_list_by_date()
+            break
+        elif user_choice.lower() == "q":
+            print(messages["exiting program"])
+            sleep(2)
+            clear()
+            main()
+        else:
+            print("\nInvalid choice. Please enter 1, 2, or 3.")
 
-    if user_choice == "1":
-        show_lists()
-    elif user_choice == "2":
-        show_list_by_name()
-    elif user_choice == "3":
-        show_list_by_date()
-    elif user_choice.lower() == "q":
-        print(messages["exiting program"])
-        main()
-    else:
-        print("Invalid choice. Please enter 1, 2, or 3.")
-
-    return user_choice
     
 
 def show_lists():
@@ -288,7 +292,7 @@ def show_list_by_name():
             if choice.lower() == "q":
                 print(messages["exiting program"])
                 main()
-            elif int(choice) in range(len(lists_names)+ 1) and choice > 0:
+            elif int(choice) in range(len(lists_names)+ 1) and int(choice) > 0:
                 for element in list_items[choice]:
                     list_content.append(element)
                 break
