@@ -219,25 +219,22 @@ def get_task():
 
 
 def open_list():
-    name = 0
-    date = 1
-
-    text1 = "\nPlease write a list's name: "
-    text2 = "\nPlease write a date in this format: dd-mm-yy: "
-
-    feedback1 = "There is no match with the provided name, try again with another name"
-    feedback2 = "There is no match with the provided date, try again with another date"
+    """
+    Prompt the user for a number corresponding to an option to:
+    show all the lists, open a list by its name or open all lists with 
+    the same date
+    """
 
     print(f"\n{messages['choose option']}\n")
     print(f"{messages['open options']}\n")
-    user_choice = input("Enter your choice:\n")
+    user_choice = input("Enter your choice:\n").strip()
 
     if user_choice == "1":
         show_lists()
     elif user_choice == "2":
         show_list_by_name()
     elif user_choice == "3":
-        show_list_by(text2, date, feedback2)
+        show_list_by_date()
     elif user_choice.lower() == "q":
         print(messages["exiting program"])
         main()
