@@ -303,26 +303,30 @@ def show_list_by_name():
     for task in tasks_list:
         print(f"  - {task}")      
     print("------------------------------------------------\n")
-        
+
+    show_menu(messages['next'], messages['choose option'], messages['menu options'])   
 
 
-def show_list_by(text, column, feedbak):
+def show_list_by_date():
     """
-    Shows lists content corresponding to the date the user inputs
+    Displays worksheet content of the rows containing the date provided by the user
     """
+    message = "\nPlease write a date in this format: dd-mm-yy: "
+    date_column = 1 # the element with index 1 of the row in the working sheets containing 
+                    # all the elements of a list is the date element
     list_items = WORKSHEET.get_all_values()
-    items = []
-    list_name = []
+    items_by_date = []
+    list_date = []
 
     while True:
-        user_answer = input(f"{text} \n")
+        user_answer = input(f"{message} \n").strip()
         
         for row in list_items:
-            if row[column] == user_answer:
-                list_name.append(row[column])
-                items.append(row)
+            if row[date_column] == user_answer:
+                list_date.append(row[date_column])
+                items_by_date.append(row)
         
-        if user_answer not in list_name and user_answer.lower() != "q":
+        if user_answer not in list_date and user_answer.lower() != "q":
             print("\nThere is no match with the provided date, try with another date\n")
             continue
         elif user_answer.lower() == "q":
@@ -330,16 +334,18 @@ def show_list_by(text, column, feedbak):
             main()
         else:
             break
-            
-    
-    for element in items:
-        name = element[0]
-        date = element[1]
-        tasks = element[2]
+
+    for item in items_by_date:
         print("------------------------------------------------")
-        print(f"Date: {date}\nName: {name}\nTasks: {tasks}")
+        print(f"Date: {item[1]}\nName: {item[0]}\nTasks:")
+
+
+        # eval is use to convert tasks(a str element) to a list element
+        tasks_list = eval(item[2])
+        for task in tasks_list:
+            print(f"  - {task}")      
         print("------------------------------------------------\n")
-    
+
     show_menu(messages['next'], messages['choose option'], messages['menu options'])
 
 
