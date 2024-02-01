@@ -163,6 +163,8 @@ def get_list_name():
             break
         elif list_name.lower() == "q":
             print(messages["exiting program"])
+            sleep(2)
+            clear()
             main()
         else:
             print("There is already a list with that name, please choose another name\n")    
@@ -209,6 +211,8 @@ def get_task():
 
         elif additional_task.lower() == "q":
             print(messages["exiting program"])
+            sleep(2)
+            clear()
             main()
 
         else:
@@ -246,7 +250,6 @@ def open_list():
         else:
             print("\nInvalid choice. Please enter 1, 2, or 3.")
 
-    
 
 def show_lists():
     """ 
@@ -291,6 +294,8 @@ def show_list_by_name():
             
             if choice.lower() == "q":
                 print(messages["exiting program"])
+                sleep(2)
+                clear()
                 main()
             elif int(choice) in range(len(lists_names)+ 1) and int(choice) > 0:
                 for element in list_items[choice]:
@@ -339,6 +344,8 @@ def show_list_by_date():
             continue
         elif user_answer.lower() == "q":
             print(messages["exiting program"])
+            sleep(2)
+            clear()
             main()
         else:
             break
