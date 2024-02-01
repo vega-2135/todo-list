@@ -195,13 +195,18 @@ def get_task():
 
         task = input("\nAdd task: ").strip()
 
-        if task.lower() != "q":
+        if len(task) < 2 :
+            print("You are entering an empty task, tasks should be at " 
+                  "least two characters long. Try again.")
+            continue
+        elif task.lower() != "q":
             tasks.append(task)
         else:
             print(messages["exiting program"])
             main()
 
-        additional_task = input("\nDo you want to add another task to this list? y/n\n").lower().strip()
+        additional_task = input("\nDo you want to add another task "
+                                "to this list? y/n\n").lower().strip()
         
         if additional_task == "y":
             continue
