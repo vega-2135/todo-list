@@ -97,7 +97,6 @@ The users have the option of exiting the application at any time they are prompt
 ![Alt text](docs_for_readme/exit2.png)
 
 ## Upcoming Features
-
 - Option that allows users to import their lists locally to their pcs.
 
 ## Technologies used
@@ -140,4 +139,65 @@ The users have the option of exiting the application at any time they are prompt
 
 - [Google Drive: ](https://drive.google.com/)
    - Google Drive was used for storing the data created with My To-Do List application.
+
+## Testing
+
+
+### Manual Testing
+I performed manual testing continuously at every stage of development.
+
+<details>
+<summary>Manual testing testing tables<summary>
+
+![](docs_for_readme/manual_testing1.png)
+
+![](docs_for_readme/manual_testing2.png)
+
+![](docs_for_readme/manual_testing3.png)
+
+</details>
+
+
+
+### Code Validation
+The Code Institute CI Python Linter(https://pep8ci.herokuapp.com/) was used for the validation of the application's code.
+
+![Alt text](docs_for_readme/ci_python_linter.png)
+
+## Deployment
+
+### 1. List of Requirements:
+- Open your terminal and run the command pip3 freeze > requirements.txt to generate a list of dependencies.
+- Commit the changes and push them to your GitHub repository.
+
+### 2. Heroku Account Setup:
+- Create an account in Heroku (if you don't have one).
+- Navigate to the Heroku dashboard and click on the "Create new app" button.
+- Choose a unique name for your app, select the region, and then click "Create app".
+
+### 3. Configuring Environment Variables:
+- Open the app settings and click on the "Reveal Config Vars" button.
+- Add a key-value pair:
+    - Key: PORT
+    - Value: 8000
+- Click "Add".
+- Add another key-value pair:
+    - Key: CREDS
+    - Value: Paste the entire content of the jason file containing the credentials for the google APIs.
+- Click "Add".
+
+### 3. Buildpack Configuration:
+- Under the "Settings" tab, locate the "Add buildpack" button.
+- Add the Python buildpack and save changes.
+- Add the Node.js buildpack below the Python buildpack and save changes.
+
+### 4. Deployment Configuration:
+- Go to the "Deploy" tab in settings.
+- Choose the deployment method as GitHub.
+- Connect your Heroku app to your GitHub repository.
+- Search for the GitHub repository name and click "connect".
+- You can select the option automatic deploys, which enables any change in the chosen branch to be automatically deployed to the app.
+- On manual deploy click "Deploy Branch"
+- After a few seconds this message appears: "Your app was successfully deployed."
+- Click on "view" to open the website containing the command line application.
 
