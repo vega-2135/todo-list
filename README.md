@@ -59,16 +59,40 @@ Error messages:
     - If the entered name already exist, a message stating that that there is a list with that name is displayed for the user.
     - If the answer entered by the user is empty, then a message is displayed saying that the name entered must be between 1 and 10 characters long. The reason for this lenght limit is so that the list can be nicely display in a table when the user selects open list in the main menu.
 
+
+
 - #### Open todo lists
 The user has the option to see all the list they created as a table, to open the content of a list by its name or all the lists with the same date.
 
+![Alt text](docs_for_readme/open_lists.png)
+
 - #### See lists
+
+![Alt text](docs_for_readme/see_lists.png)
 
 - ##### Open list by name
 The application will display the list content with the name provided by the user.
 
+![Alt text](docs_for_readme/by_name1.png)
+
+![Alt text](docs_for_readme/by_name2.png)
+
 - ##### Open list by date
 The application will display all the lists content of the lists containing the provided date.
 
-### Exit application
+![Alt text](docs_for_readme/by_date.png)
+
+- #### Help
+
+![Alt text](docs_for_readme/help.png)
+
+- #### What to do next menu
+
+![Alt text](docs_for_readme/next2.png)
+
+- #### Exit application
 The users have the option of exiting the application at any time they are prompt for an answer by entering q, which will re-start the application.
+
+![Alt text](docs_for_readme/exit1.png)
+
+![Alt text](docs_for_readme/exit2.png)
