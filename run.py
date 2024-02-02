@@ -399,6 +399,10 @@ def show_help():
     - A specific list by date: Enter '3' to access an item by specifying the
       list's date.
 
+    (4) Exit:
+
+    - Enter 4 to terminate the application.
+    
     Note: You can re-start the program at any time by entering q or Q into the
     console.
     """
