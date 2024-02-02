@@ -58,6 +58,8 @@ Error messages:
 
 ![Alt text](docs_for_readme/create_list.png)
 
+![Alt text](docs_for_readme/create_list2.png)
+
 
 - #### Open to-do lists
 The user has the option to see all the list they created as a table, to open the content of a list by its name or all the lists with the same date.
