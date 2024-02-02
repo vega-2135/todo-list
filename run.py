@@ -51,7 +51,7 @@ messages = {
     "next": "What do you want to do next: ",
     "exiting program": "\nYou are exiting the program and redirected to the "
     "main menu......",
-    "choose_name": "\nChoose a name by entering the corresponding number",
+    "choose_name": "\nChoose a name by entering the corresponding number.",
     "enter_choice": "\nEnter choice here: \n"
 }
 
