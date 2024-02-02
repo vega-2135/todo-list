@@ -31,9 +31,6 @@ My To-Do List is a versatile command-line application designed to efficiently ma
 - ### Flow chart
 ![Alt text](docs_for_readme/todo_flowshart.png)
 
-- ### Code
-The main() function is usually located at the end of the code bellow the rest of the other functions. For this program it is located at the top of the code for a morefriendly UX. WHen the part of the code containing the vaiables with the credentials and connections with google sheets api, then the loading of the game is very slow. It is good that at least the first intersction of the user with the game is as fast as it can be and then after showing the user some options the loading can be slower. I think in this way is less notisable the slow loading of the program.
-
 - ### Design
 
 - #### Colour Scheme
@@ -98,3 +95,49 @@ The users have the option of exiting the application at any time they are prompt
 ![Alt text](docs_for_readme/exit1.png)
 
 ![Alt text](docs_for_readme/exit2.png)
+
+## Upcoming Features
+
+- Option that allows users to import their lists locally to their pcs.
+
+## Technologies used
+
+### Languages Used
+
+- Python
+
+#### External Python Libraries used 
+
+- Gspread for interaction of google sheets with python code.
+- Google-auth and google.oauth2 for handling authentication and authorization with Google APIs
+- Tabulate for the display of the created lists in a table.
+- Art ASCII art library for printing name of app when the user runs the program.
+- Termcolor for adding color to welcome message.
+
+
+### Frameworks and Programs used
+
+- [GitHub:](https://github.com/)
+   - GitHub is a version control platform used for collaborative development and code management.
+
+- [Google Fonts:](https://fonts.google.com/)  
+   - Google fonts were used to import and apply a variety of fonts to enhance the visual appeal of the website.
+
+- [VSCode (Visual Studio Code):](https://code.visualstudio.com/) 
+   - VSCode is a lightweight and powerful code editor used for writing, editing, and debugging the code for this game.
+
+- [Techsini:](https://techsini.com/multi-mockup/)
+   - Techsii was used to create mockup images of home page in different devices (phone, ipad, laptop, desktop).
+
+- [Balsamiq:](https://balsamiq.com/)
+   - Balsamiq was used to generate wireframes of the game page.
+
+- [Heraku:](https://dashboard.heroku.com/)
+   - Heraku was used for the deployment of the application.
+
+- [Lucid Chart:](https://www.lucidchart.com/)
+   - Lucid Chart was used for making a flow chart of the application.
+
+- [Google Drive: ](https://drive.google.com/)
+   - Google Drive was used for storing the data created with My To-Do List application.
+
