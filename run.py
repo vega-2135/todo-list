@@ -395,13 +395,15 @@ def show_help():
     Explains the user what can they do with this program and how to do it
     """
     help_message = """
-How to Use My To-Do List:\n
-(1) Create a new list:
-To create a new list, enter '1' and follow the prompts to input the necessary
-information. Once your list is created, it will be loaded into Google Sheets
-and displayed for you.
+    How to Use My To-Do List:\n
+    (1) Create a new list:
+    
+    To create a new list, enter '1' and follow the prompts to input the necessary
+    information. Once your list is created, it will be loaded into Google Sheets
+    and displayed for you.
 
-(2) Open to-do lists:
+    (2) Open to-do lists:
+
     Use this option to access:
 
     - All your lists: Enter '1' in the menu to view all lists in a table
@@ -411,8 +413,8 @@ and displayed for you.
     - A specific list by date: Enter '3' to access an item by specifying the
       list's date.
 
-Note: You can re-start the program at any time by entering q or Q into the
-console.
+    Note: You can re-start the program at any time by entering q or Q into the
+    console.
     """
     print(help_message)
     show_menu(messages['next'], messages['choose option'],
