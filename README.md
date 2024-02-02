@@ -201,3 +201,18 @@ The Code Institute CI Python Linter(https://pep8ci.herokuapp.com/) was used for 
 - After a few seconds this message appears: "Your app was successfully deployed."
 - Click on "view" to open the website containing the command line application.
 
+## Credits
+
+### Code
+
+- I used the Python Essentials template from Code Institute as the foundation and personalized both the HTML and CSS components.
+
+- The following ideas were taken after seeing [this repocitory:](https://github.com/davidindub/quiz-master)
+    - The idea of using ASCII art library for printing name of app when the user runs the program.
+    - To write bellow the application console that this application was created by me and a link to the application's github repository.
+
+- The code for the clear function was taken from [here]:(https://www.geeksforgeeks.org/clear-screen-python/)
+
+##  Acknowledgement
+
+I'd like to thank my mentor Brian Macharia, for his invaluable guidance, feedback, tips, and the shared resources. 
