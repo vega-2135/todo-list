@@ -397,10 +397,10 @@ def show_help():
     help_message = """
     How to Use My To-Do List:\n
     (1) Create a new list:
-    
-    To create a new list, enter '1' and follow the prompts to input the necessary
-    information. Once your list is created, it will be loaded into Google Sheets
-    and displayed for you.
+
+    To create a new list, enter '1' and follow the prompts to input the
+    necessary information. Once your list is created, it will be loaded into
+    Google Sheets and displayed for you.
 
     (2) Open to-do lists:
 
