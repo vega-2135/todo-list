@@ -276,6 +276,7 @@ def show_lists():
     if len(list_items) == 1:
         print("There is nothing to display.")
     else:
+        print("")
         print(tabulate(list_items, headers="firstrow",
                        tablefmt="fancy_grid", numalign="center"))
 
