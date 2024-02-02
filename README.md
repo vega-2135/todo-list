@@ -1,6 +1,6 @@
 <h1 align="center">My To-do List</h1>
 
-<h2 align="center"><img src=docs_for_readme/my_todo.png></h2>
+![Alt text](docs_for_readme/mockup2.png)
 
 [View the live project here.](https://mytodo-list-a7cb306ab9f5.herokuapp.com/)
 
@@ -59,6 +59,7 @@ Error messages:
     - If the entered name already exist, a message stating that that there is a list with that name is displayed for the user.
     - If the answer entered by the user is empty, then a message is displayed saying that the name entered must be between 1 and 10 characters long. The reason for this lenght limit is so that the list can be nicely display in a table when the user selects open list in the main menu.
 
+![Alt text](docs_for_readme/create_list.png)
 
 
 - #### Open todo lists
@@ -87,6 +88,7 @@ The application will display all the lists content of the lists containing the p
 ![Alt text](docs_for_readme/help.png)
 
 - #### What to do next menu
+Afer each completed action, a what to do message appear with the options from themain menu.
 
 ![Alt text](docs_for_readme/next2.png)
 
