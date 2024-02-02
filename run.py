@@ -422,10 +422,10 @@ def clear():
 
 def main():
     tprint(" MY\nTO-DO\n LIST")
-    cprint("My To-Do List © Maria Romero", "magenta")
+    cprint("My To-Do List © Maria Romero", "light_magenta")
     sleep(2)
     clear()
-    cprint(f"{messages['welcome message']} \n", "magenta")
+    cprint(f"{messages['welcome message']} \n", "light_magenta")
     print(f"{messages['choose message']}\n{messages['menu options']}")
     user_answer = get_user_input().strip()
     choose_option(user_answer)
