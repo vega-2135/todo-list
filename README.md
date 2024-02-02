@@ -59,7 +59,7 @@ Error messages:
 ![Alt text](docs_for_readme/create_list.png)
 
 
-- #### Open todo lists
+- #### Open to-do lists
 The user has the option to see all the list they created as a table, to open the content of a list by its name or all the lists with the same date.
 
 ![Alt text](docs_for_readme/open_lists.png)
@@ -89,12 +89,15 @@ Afer each completed action, a what to do message appear with the options from th
 
 ![Alt text](docs_for_readme/next2.png)
 
-- #### Exit application
+- #### Re-start application
 The users have the option of exiting the application at any time they are prompt for an answer by entering q, which will re-start the application.
 
 ![Alt text](docs_for_readme/exit1.png)
 
 ![Alt text](docs_for_readme/exit2.png)
+
+- #### Exit application
+When the users choose Exit from the main menu, the program will call the exit() function leading to the termination of the application.
 
 ## Upcoming Features
 - Option that allows users to import their lists locally to their pcs.
