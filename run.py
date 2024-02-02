@@ -320,7 +320,7 @@ def show_list_by_name():
                 clear()
                 main()
             elif choice_int in range(len(lists_names) + 1) and choice_int > 0:
-                for element in list_items[choice]:
+                for element in list_items[choice_int]:
                     list_content.append(element)
                 break
             else:
