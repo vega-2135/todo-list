@@ -8,7 +8,6 @@ from time import sleep
 from os import system, name
 
 
-
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -34,7 +33,7 @@ messages = {
     "welcome message": "\nWelcome to My TO-DO List!\n",
     "choose message": f"Choose one of the following:\n",
     "menu options": f"(1) Create a new to-do list\n(2) Open to-do lists\n(3) "
-    "Help\n",
+    "Help\n(4) Exit\n",
     "choose option": "Plase choose an option:\n",
     "open options": f"(1) See lists\n(2) Open list by name\n(3) Open list by "
     "date",
@@ -49,8 +48,8 @@ messages = {
 def get_user_input():
     """
     Gets option from user and validates that the input is an integer between 1
-    and 3, if the input does not follows these constraints, then a ValueError is
-    raised
+    and 3, if the input does not follows these constraints, then a ValueError
+    is raised
 
     Return = user_input, type str, this is the option of the main manu that the
     user chooses. This return value will be use as argument in the
@@ -91,6 +90,8 @@ def choose_option(answer):
 
     elif answer == "3":
         show_help()
+    elif answer == "4":
+        exit()
 
     else:
         main()
