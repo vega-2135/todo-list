@@ -8,16 +8,6 @@ from time import sleep
 from os import system, name
 
 
-def main():
-    tprint(" MY\nTO-DO\n LIST")
-    cprint(f"{messages['welcome message']} \n", "light_magenta")
-    sleep(2)
-    clear()
-    print("")
-    print(f"{messages['choose message']}\n{messages['menu options']}")
-    user_answer = get_user_input().strip()
-    choose_option(user_answer)
-
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -59,10 +49,10 @@ messages = {
 def get_user_input():
     """
     Gets option from user and validates that the input is an integer between 1
-    and 4, if the input does not follows these constrains, then a ValueError is
+    and 3, if the input does not follows these constraints, then a ValueError is
     raised
 
-    Return = user_input, type int, this is the option of the main manu that the
+    Return = user_input, type str, this is the option of the main manu that the
     user chooses. This return value will be use as argument in the
     choose_option function
     """
@@ -206,9 +196,13 @@ def get_task():
 
         task = input("\nAdd task: ").strip()
 
-        if len(task) < 2:
-            print("You are entering an empty task, tasks should be at "
-                  "least two characters long. Try again.")
+        if task.lower() == "q":
+            print(messages["exiting program"])
+            sleep(2)
+            clear()
+            main()
+        elif len(task) < 2:
+            print("Tasks should be at least two characters long. Try again.")
             continue
         elif task.lower() != "q":
             tasks.append(task)
@@ -244,7 +238,7 @@ def open_list():
     while True:
         print(f"\n{messages['choose option']}\n")
         print(f"{messages['open options']}\n")
-        user_choice = input("Enter your choice:\n").strip()
+        user_choice = input(messages['enter_choice']).strip()
 
         if user_choice == "1":
             show_lists()
@@ -305,18 +299,13 @@ def show_list_by_name():
             print(f"{messages['choose_name']}")
 
             choice = input(messages["enter_choice"]).strip()
-            # len(lists_names)+ 1 is used because as range doesn't include the
-            # last value, thus, + 1 is needed to include the last item of the
-            # column name
-
-            choice_int = int(choice)
             if choice.lower() == "q":
                 print(messages["exiting program"])
                 sleep(2)
                 clear()
                 main()
-            elif choice_int in range(len(lists_names) + 1) and choice_int > 0:
-                for element in list_items[choice_int]:
+            elif 0 < (choice_int := int(choice)) <= len(lists_names):
+                for element in list_items[int(choice)]:
                     list_content.append(element)
                 break
             else:
@@ -428,6 +417,16 @@ def clear():
     # for mac and linux
     else:
         _ = system('clear')
+
+
+def main():
+    tprint(" MY\nTO-DO\n LIST")
+    cprint(f"{messages['welcome message']} \n", "light_magenta")
+    sleep(2)
+    clear()
+    print(f"{messages['choose message']}\n{messages['menu options']}")
+    user_answer = get_user_input().strip()
+    choose_option(user_answer)
 
 
 main()
