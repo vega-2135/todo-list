@@ -147,7 +147,7 @@ The users have the option of exiting the application at any time they are prompt
 I performed manual testing continuously at every stage of development.
 
 <details>
-<summary>Manual testing testing tables<summary>
+<summary>Manual testing testing tables</summary>
 
 ![](docs_for_readme/manual_testing1.png)
 
